@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">trainer5</string>
+    <string name="hint">Дела на данный день:</string>
+</resources>
