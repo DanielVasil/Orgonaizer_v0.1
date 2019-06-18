@@ -1,19 +1,14 @@
 package com.daniel.trainer5;
 
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,10 +19,6 @@ public class MainActivity extends AppCompatActivity {
     DataBase dbHelper;
     private ListView all_tasks;
     private ArrayAdapter<String> my_adapter;
-    private EditText field_text;
-    private SharedPreferences prefs;
-    private String name_list;
-    private CalendarView calendar;
 
 
     @Override
@@ -36,18 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DataBase(this);
         all_tasks = findViewById(R.id.tasks_list);
-        field_text = findViewById(R.id.list_name);
-        calendar =  findViewById(R.id.calendar);
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-                                             @Override
-                                             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 
-                                                     String Date = dayOfMonth + "-" + (month + 1) + "-" + year;
-                                             }
-                                         });
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        name_list = prefs.getString("list_name","");
-        field_text.setText(name_list);
 
         loadAllTasks();
 
@@ -79,32 +59,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()== R.id.add_new_task){
-            final EditText userTaskGet = new EditText(this);
-            AlertDialog dialog = new AlertDialog.Builder(this).setTitle("Добавление нового задания")
-                    .setMessage("Что бы вы хотели добавить?")
-                    .setView(userTaskGet)
-                    .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String task = String.valueOf(userTaskGet.getText());
-                            dbHelper.insertData(task);
-                            loadAllTasks();
-                        }
-                    })
-                    .setNegativeButton("Ничего", null)
-                    .create();
-            dialog.show();
-            return true;
+
+            Intent intent = new Intent(MainActivity.this, RedactActivity.class);
+            startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void deleteTask(View view){
         View parent = (View)view.getParent();
-        TextView txt_task = (TextView)findViewById(R.id.txt_task);
+        TextView txt_task = findViewById(R.id.txt_task);
         String task = String.valueOf(txt_task.getText());
         dbHelper.deleteData(task);
         loadAllTasks();
     }
 
 }
+
