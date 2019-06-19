@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DataBase(this);
         all_tasks = findViewById(R.id.tasks_list);
 
-
         loadAllTasks();
 
     }

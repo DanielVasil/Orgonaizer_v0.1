@@ -22,7 +22,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = String.format("CREATE TABLE %s (ID INTEGER PRIMARY KEY AUTOINCREMENT," + " %s TEXT NOT NULL,"+" %s DATE NOT NULL);", db_table, db_column, db_date);
+        String query = String.format("CREATE TABLE %s (ID INTEGER PRIMARY KEY AUTOINCREMENT," + " %s TEXT NOT NULL,"+" %s TEXT NOT NULL);", db_table, db_column, db_date);
         db.execSQL(query);
 
 
