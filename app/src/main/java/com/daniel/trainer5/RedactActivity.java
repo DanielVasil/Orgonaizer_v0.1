@@ -1,5 +1,6 @@
 package com.daniel.trainer5;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,23 @@ public class RedactActivity extends AppCompatActivity {
     private ListView all_tasks;
     private CalendarView calendar;
     private String date;
+    public class MyData{
+        private String task = "";
+        private String date = "";
+    }
 
+    public class MyDataListAdapter extends ArrayAdapter<MyData> {
+        private final Context context;
+        private ArrayList<MyData> data = null;
 
-    @Override
+        public MyDataListAdapter(Context context, ArrayList<MyData> dataList) {
+            super(context, R.layout.row, dataList);
+            this.data = dataList;
+            this.context = context;
+        }
+    }
+
+            @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redact);
